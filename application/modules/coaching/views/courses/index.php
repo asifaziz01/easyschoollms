@@ -34,16 +34,7 @@
                           echo '<span class="badge badge-danger">Unpublished</span>';
                         }
                         ?>
-                    </p>
-                    <p class="mb-2 mb-md-0 text-muted text-small w-15 w-xs-100">
-                        <?php 
-                        if ($row['enrolment_type'] == COURSE_ENROLMENT_DIRECT) {
-                          echo '<span class="badge badge-primary">Direct</span>';
-                        } else {
-                          echo '<span class="badge badge-secondary">Batch</span>';
-                        }
-                        ?>
-                    </p>
+                    </p>                   
                   </div>
                 </div>
                   <div class="flex-shrink-0">
@@ -59,7 +50,10 @@
     } else {
       ?>
       <div class="alert alert-danger" role="alert">
-        No subjects found. <?php echo anchor ('coaching/courses/create/'.$coaching_id.'/'.$cat_id, 'Create a new subject'); ?>
+        No subjects found. 
+          <?php if ($is_admin) { ?>
+            <?php echo anchor ('coaching/courses/create/'.$coaching_id.'/'.$cat_id, 'Create a new subject'); ?>
+          <?php } ?>
       </div>
       <?php
     }

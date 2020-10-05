@@ -21,3 +21,10 @@ $config['vc_error_code'] = [
 	2=>'You cannot start this class. Your role in this classroom is of Attendee. Only a participant with Moderator role can start a class. <br> To add yourself as Moderator, first remove yourself from the class and again "add as participant with moderator role".',
 	3=>'You are not a participant in this classroom. To start or join this class you must be a participant with Moderator or Attendee role.',
 ];
+
+
+/* External Class Settings */
+define ('OC_APP_ZOOM', 					1);
+define ('OC_APP_GOOGLE', 				2);
+define ('OC_APP_JIO', 					3);
+define ('OC_APP_OTHER', 				4);

@@ -3,14 +3,7 @@
         <div class="card mb-4 progress-banner">
             <a href="<?php echo site_url ('coaching/subscription/index/'.$coaching_id.'/'.$subscription['sp_id']); ?>" class="card-body justify-content-between d-flex flex-row align-items-center">
                 <div>
-					<?php if ($subscription['ending_on'] > time ()) { ?>
-						<i class="iconsminds-yes mr-2 text-white align-text-bottom d-inline-block"></i>
-					<?php } else { ?>
-						<i class="iconsminds-close-check mr-2 text-white align-text-bottom d-inline-block"></i>
-					<?php } ?>
                     <div>
-                        <p class="lead text-white"><?php echo $subscription['title']; ?></p>
-                        <p class="text-small text-white">Ending On: <?php echo date ('d M, Y', $subscription['ending_on']); ?></p>
                     </div>
                 </div>
 
@@ -32,27 +25,24 @@
                     </div>
                 </div>
                 <div>
-                    <div role="progressbar"
-                        class="progress-bar-circle progress-bar-banner position-relative" data-color="white"
-                        data-trail-color="rgba(255,255,255,0.2)" aria-valuenow="<?php echo $users['total']; ?>" aria-valuemax="<?php echo $subscription['max_users']; ?>"
-                        data-show-percent="false">
-                    </div>
+                	<button class="btn btn-light btn-sm">Go To Users</button>
                 </div>
             </a>
         </div>
     </div>
+
     <div class="col-lg-4">
         <div class="card mb-4 progress-banner">
             <a href="<?php echo site_url ('coaching/courses/index/'.$coaching_id); ?>" class="card-body justify-content-between d-flex flex-row align-items-center">
                 <div>
                     <i class="iconsminds-books mr-2 text-white align-text-bottom d-inline-block"></i>
                     <div>
-                        <p class="lead text-white"><?php echo $num_courses; ?> Courses</p>
+                        <p class="lead text-white"><?php echo $num_courses; ?> Classes</p>
                         <p class="text-small text-white"></p>
                     </div>
                 </div>
                 <div>
-                	<button class="btn btn-light btn-sm">View Courses</button>
+                	<button class="btn btn-light btn-sm">Go To Classes</button>
                 </div>
             </a>
         </div>
@@ -74,6 +64,7 @@
 				</div>
 			</div>
 		</div>
+
 		<!----// Users //-->
 		<div class="card mb-4 shadow">
 			<div class="position-absolute card-top-buttons p-4 mt-1 mr-1">
@@ -150,6 +141,7 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- // Col-md-6 -->
 	<div class="col-md-6">
 		<!----// Class //-->
@@ -161,7 +153,7 @@
             </div>
 			<div class="card-body">
 				<h4 class="card-title d-flex justify-content-between">
-					<span><i class="iconsminds-books "></i> Courses</span>
+					<span><i class="iconsminds-books "></i> Classes</span>
 				</h4>
 				<div class="separator mb-5"></div>
 				<div class="scroll" style="height:300px;">
@@ -172,19 +164,12 @@
 								?>
 								 <div class="d-flex flex-row justify-content-between mb-3 pb-3 border-bottom">
 								 	<div class="flex-grow-1 my-auto">
-					                  <a class="d-flex" href="<?php echo site_url ('coaching/courses/manage/'.$coaching_id.'/'.$row['course_id']); ?>" style="font-size: 1.1rem;">
-					                      <?php 
-					                      if ($row['status'] == LESSON_STATUS_PUBLISHED) {
-					                        echo '<i class="simple-icon-check flex-shrink-1 my-auto text-primary mr-2"></i>';
-					                      } else {
-					                        echo '<i class="simple-icon-check flex-shrink-1 my-auto text-primary mr-2"></i>';
-					                      }
-					                      ?>
-					                      <span class="flex-grow-1 my-auto"><?php echo $row['title']; ?></span>
+					                  <a class="d-flex" href="<?php echo site_url ('coaching/users/batch_users/'.$coaching_id.'/'.$row['batch_id']); ?>" style="font-size: 1.1rem;">
+					                      <span class="flex-grow-1 my-auto"><?php echo $row['batch_name']; ?></span>
 					                  </a>
 								 	</div>
 				                  <div class="flex-shrink-0 my-auto">
-				                    <a class="btn btn-outline-primary btn-sm" href="<?php echo site_url ('coaching/courses/manage/'.$coaching_id.'/'.$row['course_id']); ?>"><i class="fa fa-cog"></i> Manage </a>
+				                    <a class="btn btn-outline-primary btn-sm" href="<?php echo site_url ('coaching/users/batch_users/'.$coaching_id.'/'.$row['batch_id']); ?>"><i class="fa fa-users"></i> Users </a>
 
 				                  </div>
 				                </div>
@@ -217,7 +202,7 @@
 	                if (! empty ($announcements)) {
 						foreach ($announcements as $row) {
 							?>
-			                <div class="mb-4">
+			                <div class="mb-4 border-bottom">
 			                    <p class="mb-2">
 			                        <a href="<?php echo site_url ('coaching/announcements/create_announcement/'.$coaching_id.'/'.$row['announcement_id']); ?>"><span><?php echo $row['title']; ?></span></a>
 			                        <span class="float-right text-muted"><?php echo date ('j/M', $row['start_date']); ?></span>

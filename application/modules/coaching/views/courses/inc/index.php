@@ -23,7 +23,11 @@
             <?php foreach ($batches as $category): ?>
             <li class="d-flex">
               <div class="flex-grow-1 my-auto <?php echo ($cat_id == $category['batch_id']) ? 'text-primary' : ''; ?>">
-                <a href="<?php echo site_url('coaching/courses/index/' . $coaching_id . '/' . $category['batch_id']); ?>" class="py-2 d-block text-decoration-none <?php echo ($cat_id == $category['batch_id']) ? 'text-primary' : ''; ?>">
+                <?php if ($is_admin) { ?>
+                  <a href="<?php echo site_url('coaching/courses/index/' . $coaching_id . '/' . $category['batch_id']); ?>" class="py-2 d-block text-decoration-none <?php echo ($cat_id == $category['batch_id']) ? 'text-primary' : ''; ?>">
+                <?php } else { ?>
+                  <a href="<?php echo site_url('coaching/courses/direct_courses/' . $coaching_id . '/' . $category['batch_id']); ?>" class="py-2 d-block text-decoration-none <?php echo ($cat_id == $category['batch_id']) ? 'text-primary' : ''; ?>">
+                <?php } ?>
                   <i class="iconsminds-right <?php echo ($cat_id == $category['batch_id']) ? 'text-primary' : ''; ?>">
                   </i>
                   <?php echo $category['batch_name']; ?>

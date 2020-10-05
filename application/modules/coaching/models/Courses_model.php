@@ -144,6 +144,7 @@ class Courses_model extends CI_Model {
 		}
 		return $courses;
 	}
+
 	public function member_courses_by_type($type = COURSE_ENROLMENT_DIRECT, $coaching_id, $cat_id=0, $status = CATEGORY_STATUS_ALL){
         $this->db->select(
         	array(
@@ -165,8 +166,9 @@ class Courses_model extends CI_Model {
         $sql = $this->db->get('coaching_courses');
 		$courses = $sql->result_array();
 		foreach ($courses as $i => $course) {
-			$cat = $this->get_course_category_by_id ($course['cat_id']);
-			$courses[$i]['cat_title'] = $cat['title'];
+			//$cat = $this->get_course_category_by_id ($course['cat_id']);
+			$cat = $this->users_model->get_batch_details ($course['cat_id']);
+			$courses[$i]['cat_title'] = $cat['batch_name'];
 			$created_by = $this->users_model->get_user($course['created_by']);
 			$courses[$i]['created_by'] = $created_by['first_name'] . " " . $created_by['last_name'];
 			$assigned_by = $this->users_model->get_user($course['assigned_by']);

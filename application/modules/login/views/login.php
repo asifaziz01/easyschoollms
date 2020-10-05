@@ -23,17 +23,23 @@
                 <?php echo form_open ('login/login_actions/validate_login', array('id'=>'login-form')); ?>
                     <div class="form-group mb-4">
                         <label class="">
-                            <span>Enrolment No/User-id</span>
+                            <!--<span>Enrolment No/User-id</span>-->
+                            <span>Login As</span>
                         </label>
-                        <input class="form-control" placeholder="Enrolment No/User-ID" type="text" name="username">
+                        <select name="username" class="form-control">
+                            <option value="admin">Administrator</option>
+                            <option value="ABCD1234">Teacher</option>
+                            <option value="ABCD1235">Student</option>                            
+                        </select>
+                        <!--<input class="form-control" placeholder="Enrolment No/User-ID" type="text" name="username">-->
                     </div>
 
                     <div class="form-group mb-4">
                         <label class="">
                             <span>Password</span>
                         </label>
-                        <input class="form-control" placeholder="Password" type="password" name="password">
-                        <a href="<?php echo site_url ('login/user/reset_password'); ?>" class="text-info">Reset password</a>
+                        <input class="form-control" placeholder="Password" type="password" name="password" value="Test@1234" readonly="true">
+                        <!--<a href="<?php echo site_url ('login/user/reset_password'); ?>" class="text-info">Reset password</a>-->
                     </div>
 
                     <div class="form-group mb-4">

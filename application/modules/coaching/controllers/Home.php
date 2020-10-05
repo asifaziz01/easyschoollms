@@ -48,7 +48,7 @@ class Home extends MX_Controller {
 		$data['coaching'] = $this->coaching_model->get_coaching ($coaching_id);
 		$data['subscription'] = $this->subscription_model->get_coaching_subscription ($coaching_id);
 		$data['announcements'] = $this->coaching_model->get_coaching_announcements ($coaching_id);
-		$data['courses'] 	= $courses = $this->courses_model->courses($coaching_id);
+		$data['courses'] 	= $courses = $this->users_model->get_batches ($coaching_id);
 		
 		if (! empty ($courses)) {
 			$data['num_courses'] = count ($courses);

@@ -64,17 +64,17 @@ class Courses extends MX_Controller {
 	}
 
 	public function direct_courses ($coaching_id=0, $cat_id='-1') {
-		$data['page_title'] = 'Direct Courses';
+		$data['page_title'] = 'My Subjects';
 		$is_admin = USER_ROLE_COACHING_ADMIN === intval($this->session->userdata('role_id'));
 		$data['bc'] = array('Dashboard' => 'coaching/home/teacher/' . $coaching_id);
 		$data['cat_id'] = $cat_id;
 		$data['coaching_id'] = $coaching_id;
-		$data['categories'] = $this->courses_model->course_categories($coaching_id);
+		$data['batches'] = $this->users_model->get_batches ($coaching_id);
 		$data['courses_uncategorized'] = $this->courses_model->courses_uncategorized($coaching_id);
 		if ($is_admin) {
 			redirect("coaching/courses/index/".$coaching_id.'/'.$cat_id); 
 		} else {
-			$data['courses'] = $this->courses_model->member_courses_by_type (COURSE_ENROLMENT_DIRECT, $coaching_id);
+			$data['courses'] = $this->courses_model->member_courses_by_type (COURSE_ENROLMENT_DIRECT, $coaching_id, $cat_id);
 			$data['num_courses'] = count($data['courses']);
 		}
 		$data['is_admin'] = $is_admin;
@@ -154,7 +154,11 @@ class Courses extends MX_Controller {
 		$data['coaching_id'] = $coaching_id;
 		$data['course_id'] = $course_id;
 		$data['is_admin'] = USER_ROLE_COACHING_ADMIN === intval($this->session->userdata('role_id'));
-		$data['bc'] = array('Courses' => 'coaching/courses/index/'.$coaching_id);
+		if ($data['is_admin']) {
+			$data['bc'] = array('Courses' => 'coaching/courses/index/'.$coaching_id);
+		} else {
+			$data['bc'] = array('Courses' => 'coaching/courses/direct_courses/'.$coaching_id);			
+		}
 
 		$data['right_sidebar'] = $this->load->view ('courses/inc/manage_course', $data, true);
 		$this->load->view(INCLUDE_PATH . 'header', $data);

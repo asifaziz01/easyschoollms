@@ -68,27 +68,71 @@
 	    </div>
 	<?php } ?>
     
-	    <!-- Organize -->
-	    <div class="col-lg-6 col-md-12 mb-4">
-	        <div class="card">
-	            <div class="card-body">
-	                <h5 class="card-title text-primary">
-	                	<span><i class="iconsminds-calendar-1 pr-3"></i></span>Organize <span class="badge badge-primary float-right"></span>
-	                </h5>
-	                <div class="separator mb-5"></div>
-	                <div class="card-body p-0 align-self-center justify-content-between min-width-zero align-items-md-center">
-		                <a class="list-item-heading mb-0 truncate w-100 mt-0 d-inline-block" href="<?php echo site_url ('coaching/courses/organize/'.$coaching_id.'/'.$course_id); ?>">
-		                    <i class="iconsminds-calendar-1 heading-icon"></i>
-		                    <span class="align-middle d-inline-block">Organize Contents </span>
-		                </a>
-		                 <a class="list-item-heading mb-0 truncate w-100 mt-0 d-inline-block" href="<?php echo site_url ('coaching/courses/preview/'.$coaching_id.'/'.$course_id); ?>">
-		                    <i class="iconsminds-preview heading-icon"></i>
-		                    <span class="align-middle d-inline-block">Preview Course</span>
-		                </a>
-		            </div>
+    <!-- Organize -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-primary">
+                	<span><i class="iconsminds-calendar-1 pr-3"></i></span>Organize <span class="badge badge-primary float-right"></span>
+                </h5>
+                <div class="separator mb-5"></div>
+                <div class="card-body p-0 align-self-center justify-content-between min-width-zero align-items-md-center">
+	                <a class="list-item-heading mb-0 truncate w-100 mt-0 d-inline-block" href="<?php echo site_url ('coaching/courses/organize/'.$coaching_id.'/'.$course_id); ?>">
+	                    <i class="iconsminds-calendar-1 heading-icon"></i>
+	                    <span class="align-middle d-inline-block">Organize Contents </span>
+	                </a>
+	                 <a class="list-item-heading mb-0 truncate w-100 mt-0 d-inline-block" href="<?php echo site_url ('coaching/courses/preview/'.$coaching_id.'/'.$course_id); ?>">
+	                    <i class="iconsminds-preview heading-icon"></i>
+	                    <span class="align-middle d-inline-block">Preview Course</span>
+	                </a>
 	            </div>
-	        </div>
-	    </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- Online Class -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-primary">
+                	<span><i class="iconsminds-monitor---phone pr-3"></i></span>Online Classes <span class="badge badge-primary float-right"></span>
+                </h5>
+                <div class="separator mb-5"></div>
+                <div class="card-body p-0 align-self-center justify-content-between min-width-zero align-items-md-center">
+	                <a class="list-item-heading mb-0 truncate w-100 mt-0 d-inline-block" href="<?php echo site_url ('coaching/online_class/index/'.$coaching_id.'/'.$course_id); ?>">
+	                    <i class="iconsminds-monitor---phone heading-icon"></i>
+	                    <span class="align-middle d-inline-block">All Classes </span>
+	                </a>
+	                 <a class="list-item-heading mb-0 truncate w-100 mt-0 d-inline-block" href="<?php echo site_url ('coaching/online_class/add_class/'.$coaching_id.'/'.$course_id); ?>">
+	                    <i class="iconsminds-add heading-icon"></i>
+	                    <span class="align-middle d-inline-block">Add Class</span>
+	                </a>
+	            </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- Announcements -->
+    <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-primary">
+                	<span><i class="iconsminds-monitor---phone pr-3"></i></span>Announcements <span class="badge badge-primary float-right"></span>
+                </h5>
+                <div class="separator mb-5"></div>
+                <div class="card-body p-0 align-self-center justify-content-between min-width-zero align-items-md-center">
+	                <a class="list-item-heading mb-0 truncate w-100 mt-0 d-inline-block" href="<?php echo site_url ('coaching/announcements/index/'.$coaching_id.'/'.$course_id); ?>">
+	                    <i class="iconsminds-monitor---phone heading-icon"></i>
+	                    <span class="align-middle d-inline-block">All Announcements </span>
+	                </a>
+	                 <a class="list-item-heading mb-0 truncate w-100 mt-0 d-inline-block" href="<?php echo site_url ('coaching/announcements/create_announcements/'.$coaching_id.'/'.$course_id); ?>">
+	                    <i class="iconsminds-add heading-icon"></i>
+	                    <span class="align-middle d-inline-block">Add Announcement</span>
+	                </a>
+	            </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Settings -->
