@@ -313,13 +313,19 @@
                         </h1>
 
                         <div class="top-right-button-container">
-                            <?php if (isset ($toolbar_buttons) && ! empty ($toolbar_buttons)) { ?>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary btn-lg top-right-button "
-                                        data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight">ACTIONS
-                                    </button>
+                            <div class="btn-group">
+                                <?php if (isset ($toolbar_add_button)) { ?>
+                                    <a href="<?php echo site_url (current($toolbar_add_button)); ?>" class="btn btn-primary btn-lg pl-4 pr-1">
+                                        <?php echo key ($toolbar_add_button); ?>
+                                    </a>
+                                <?php } else { ?>
+                                <?php } ?>
+                                <?php if (isset ($toolbar_buttons) && ! empty ($toolbar_buttons)) { ?>
+                                    <div class="btn btn-primary btn-lg pl-4 pr-0">
+                                        Actions
+                                    </div>
                                     <button type="button"
-                                        class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
+                                        class="btn btn-primary dropdown-toggle dropdown-toggle-split"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
@@ -328,9 +334,8 @@
                                             <a class="dropdown-item" href="<?php echo site_url ($url); ?>"><?php echo $title; ?></a>
                                         <?php } ?>
                                     </div>
-                                </div>
-                            <?php } ?>
-                           
+                                <?php } ?>
+                            </div>
                         </div>                      
 
                     </div>

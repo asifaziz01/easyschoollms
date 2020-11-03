@@ -67,6 +67,7 @@ class Announcements extends MX_Controller {
 
 		/*Check submit button */
 		$data['coaching_id']=$coaching_id;
+		$data['course_id']=$coaching_id;
 		$data['announcement_id']=$announcement_id;
 		$data['result'] = $this->announcements_model->get_announcement($coaching_id, $course_id, $announcement_id);
 		

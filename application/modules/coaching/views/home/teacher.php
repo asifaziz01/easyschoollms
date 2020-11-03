@@ -1,90 +1,237 @@
 <div class="row">
-    <div class="col-lg-4">
-        <div class="card mb-4 progress-banner">
-            <a href="<?php echo site_url('coaching/courses/batch_courses/'.$coaching_id); ?>" class="card-body justify-content-between d-flex flex-row align-items-center">
-                <div class="flex-grow-1">
-                	<i class="iconsminds-library mr-2 text-white align-text-bottom d-inline-block"></i>
-					<div>
-                        <p class="lead text-white"><?php echo ($batch_courses > 1)? "$batch_courses Batch Courses": " $batch_courses Batch Course"; ?></p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0">
-					<button class="btn btn-light btn-sm">View</button>
-                </div>
-            </a>
+	<!-- // Col-md-6 -->
+	<div class="col-md-6">
+		<!----// Class //-->
+		<div class="card mb-4 shadow">
+			<div class="position-absolute card-top-buttons p-4 mt-1 mr-1">
+				<h4 class="card-title mb-0">
+					<span class="badge badge-primary"><?php echo $num_courses; ?></span>
+				</h4>
+            </div>
+			<div class="card-body">
+				<h4 class="card-title d-flex justify-content-between">
+					<span><i class="iconsminds-books "></i> My Subjects</span>
+				</h4>
+				<div class="separator mb-5"></div>
+				<div class="scroll" style="height:250px;">
+					<?php
+					$i = 0;
+					if (! empty($courses)) {
+						foreach ($courses as $row) {
+							?>
+							 <div class="d-flex flex-row justify-content-between mb-3 pb-3 border-bottom">
+							 	<div class="flex-grow-1 my-auto">
+				                  <?php echo $row['title']; ?>
+		                            <div class="text-muted text-small">
+		                              <?php
+		                                if ($row['cat_id'] == 0)
+		                                  echo 'Uncategorized';
+		                                else
+		                                  echo $row['cat_title'];
+		                              ?>
+		                            </div>
+							 	</div>
+			                  	<div class="flex-shrink-0 my-auto mr-3">
+			                      	<?php 
+				                        if ($row['status'] == COURSE_STATUS_ACTIVE) {
+				                          echo '<span class="badge badge-success">Published</span>';
+				                        } else {
+				                          echo '<span class="badge badge-danger">Unpublished</span>';
+				                        }
+			                        ?>
+				                </div>
+				                <div class="flex-shrink-0">
+				                    <a class="btn btn-primary" href="<?php echo site_url ('coaching/courses/manage/'.$coaching_id.'/'.$row['course_id']); ?>"><i class="fa fa-cog"></i> Manage </a>
+			    	            </div>
+			                </div>
+							<?php
+							$i++;
+							if ($i >= 5) {
+								break;
+							}
+						}
+					} else {
+						?>
+						<div class="alert alert-danger">
+							No subject created
+						</div>
+						<?php
+					}
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-md-6">
+		<!----// Class //-->
+		<div class="card mb-4 shadow">
+			<div class="position-absolute card-top-buttons p-4 mt-1 mr-1">
+				<h4 class="card-title mb-0">
+					<span class="badge badge-primary"><?php echo $num_oc; ?></span>
+				</h4>
+            </div>
+			<div class="card-body">
+				<h4 class="card-title d-flex justify-content-between">
+					<span><i class="iconsminds-books "></i> Online Classes</span>
+				</h4>
+				<div class="separator mb-5"></div>
+				<div class="scroll" style="height:250px;">
+					<?php
+					$i = 0;
+					if (! empty($online_class)) {
+					  foreach ($online_class as $oc) {
+						if (! empty($oc)) {
+						  foreach ($oc as $row) {
+							?>
+							 <div class="d-flex flex-row justify-content-between mb-3 pb-3 border-bottom">
+							 	<div class="flex-grow-1 my-auto">
+				                  	<h4>
+										<?php echo $row["meeting_url"]; ?>
+									</h4>
+									<p class="text-muted mb-0">
+										<?php if ($row['app_type'] == OC_APP_ZOOM ) { ?>
+											<span>Zoom App</span>
+										<?php } else if ($row['app_type'] == OC_APP_GOOGLE ) { ?>
+											<span>Google Meet</span>
+										<?php } else if ($row['app_type'] == OC_APP_JIO ) { ?>
+											<span>Jio Meet</span>
+										<?php } else { ?>
+											<span>Other</span>
+										<?php } ?>
+									</p>
+									<p>
+										Created on: <?php echo date ('d M, Y', $row['created_on']); ?>
+									</p>
+							 	</div>
+			                  	<div class="flex-shrink-0 my-auto mr-3">
+									<a href="<?php echo $row['meeting_url']; ?>" class="btn btn-primary "> Join </a>
+				                </div>
+			                </div>
+							<?php
+							$i++;
+							if ($i >= 5) {
+								break;
+							}
+						  }
+						}
+					  }
+					} 
+					if ($i == 0) {
+						?>
+						<div class="text-danger">
+							No class created
+						</div>
+						<?php
+					}
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-6">
+		<!-- Tests -->
+		<div class="card mb-4 shadow">
+			<div class="position-absolute card-top-buttons p-4 mt-1 mr-1">
+				<h4 class="card-title mb-0">
+					<span class="badge badge-primary"><?php echo $num_tests; ?></span>
+				</h4>
+            </div>
+			<div class="card-body">
+				<h4 class="card-title d-flex justify-content-between">
+					<span><i class="iconsminds-books "></i> Tests</span>
+				</h4>
+				<div class="separator mb-5"></div>
+				<div class="scroll" style="height:250px;">
+					<?php
+					$i = 0;
+					if (! empty($tests)) {
+					  foreach ($tests as $test) {
+					  	if (! empty ($test)) {
+					  	  foreach ($test as $row) {
+
+							?>
+							 <div class="d-flex flex-row justify-content-between mb-3 pb-3 border-bottom">
+							 	<div class="flex-grow-1 my-auto">
+				                  <?php echo $row['title']; ?>
+		                            <div class="text-muted text-small">
+		                              <?php
+		                                if ($row['category_id'] == 0) {
+		                                  //echo 'Uncategorized';
+		                                } else {
+		                                 //echo $row['cat_title'];
+		                                }
+		                              ?>
+		                            </div>
+							 	</div>
+			                  	<div class="flex-shrink-0 my-auto mr-3">
+			                      	<?php 
+				                        if ($row['status'] == COURSE_STATUS_ACTIVE) {
+				                          echo '<span class="badge badge-success">Published</span>';
+				                        } else {
+				                          echo '<span class="badge badge-danger">Unpublished</span>';
+				                        }
+			                        ?>
+				                </div>
+				                <div class="flex-shrink-0">
+				                    <a class="btn btn-primary" href="<?php echo site_url ('coaching/courses/manage/'.$coaching_id.'/'.$row['test_id']); ?>"><i class="fa fa-cog"></i> Manage </a>
+			    	            </div>
+			                </div>
+							<?php
+							$i++;
+							if ($i >= 5) {
+								break;
+							}
+					  	  }
+					  	}
+ 					  }
+					} 
+					if ($i == 0) {
+						?>
+						<div class="text-danger">
+							No test created
+						</div>
+						<?php
+					}
+					?>
+				</div>
+			</div>
+		</div>
+		<!-- Tests -->
+	</div>
+
+
+	<div class="col-md-6">
+		<!----// Announcements //-->
+		<div class="card mb-4 shadow">
+            <div class="card-body">
+            	<h4 class="card-title d-flex justify-content-between">
+					<span><i class="iconsminds-loudspeaker"></i> Announcements</span>
+				</h4>
+				<div class="separator mb-5"></div>
+				<div class="scroll" style="height:250px;">
+	                <?php 
+	                if (! empty ($announcements)) {
+						foreach ($announcements as $row) {
+							?>
+			                <div class="mb-4 border-bottom">
+			                    <p class="mb-2">
+			                        <a href="<?php echo site_url ('coaching/announcements/create_announcement/'.$coaching_id.'/'.$row['announcement_id']); ?>"><span><?php echo $row['title']; ?></span></a>
+			                        <span class="float-right text-muted"><?php echo date ('j/M', $row['start_date']); ?></span>
+			                    </p>
+			                </div>
+			                <?php
+						}
+					}
+					?>
+				</div>
+            </div>
         </div>
-        <div class="card mb-4 progress-banner">
-            <a href="<?php echo site_url('coaching/courses/direct_courses/'.$coaching_id); ?>" class="card-body justify-content-between d-flex flex-row align-items-center">
-                <div class="flex-grow-1">
-                	<i class="iconsminds-books mr-2 text-white align-text-bottom d-inline-block"></i>
-					<div>
-                        <p class="lead text-white"><?php echo ($direct_courses > 1)? "$direct_courses Direct Courses": " $direct_courses Direct Course"; ?></p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0">
-					<button class="btn btn-light btn-sm">View</button>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="card mb-4 progress-banner">
-            <a href="<?php echo site_url ('coaching/virtual_class/my_classes/'.$coaching_id); ?>" class="card-body justify-content-between d-flex flex-row align-items-center">
-                <div class="flex-grow-1">
-                	<i class="iconsminds-blackboard mr-2 text-white align-text-bottom d-inline-block"></i>
-					<div>
-                        <p class="lead text-white"><?php echo count($my_classrooms) . " Upcoming Virtual "; echo (count($my_classrooms)>1)?"Sessions":"Session"; ?></p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0">
-					<button class="btn btn-light btn-sm">View All</button>
-                </div>
-            </a>
-        </div>
-        <div class="card mb-4 progress-banner">
-            <a href="<?php echo site_url('coaching/courses/index/'.$coaching_id) ?>" class="card-body justify-content-between d-flex flex-row align-items-center">
-                <div class="flex-grow-1">
-                	<i class="iconsminds-notepad mr-2 text-white align-text-bottom d-inline-block"></i>
-					<div>
-                        <p class="lead text-white"><?php echo "Total Tests $count_tests";?></p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0">
-					<button class="btn btn-light btn-sm">View All</button>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="card mb-4 progress-banner">
-            <a href="<?php echo site_url('coaching/plans/index/'.$coaching_id) ?>" class="card-body justify-content-between d-flex flex-row align-items-center">
-                <div class="flex-grow-1">
-                	<i class="iconsminds-tag-3 mr-2 text-white align-text-bottom d-inline-block"></i>
-					<div>
-                        <p class="lead text-white"><?php echo "$paid_resource Paid Resources"; ?></p>
-                        <p class="text-small text-white"><?php echo "$free_resource Free Resources"; ?></p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0">
-					<button class="btn btn-light btn-sm">Check EasyLMS</button>
-                </div>
-            </a>
-        </div>
-        <div class="card mb-4 progress-banner">
-            <a href="javascript:void(0);" class="card-body justify-content-between d-flex flex-row align-items-center">
-                <div class="flex-grow-1">
-                	<i class="simple-icon-settings mr-2 text-white align-text-bottom d-inline-block"></i>
-					<div>
-                        <p class="lead text-white">Manage Resources</p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0">
-					<button class="btn btn-light btn-sm" disabled>Comming Soon</button>
-                </div>
-            </a>
-        </div>
-    </div>
+	</div>
 </div>
+
 <div class="row justify-content-center d-none">
 	<div class="col-md-12">
 		<div class="card mb-4 shadow-sm">

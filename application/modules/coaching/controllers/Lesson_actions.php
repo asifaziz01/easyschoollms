@@ -65,7 +65,7 @@ class Lesson_actions extends MX_Controller {
 		} 
 	}
 
-	public function add_attachment ($coaching_id=0, $course_id=0, $lesson_id=0, $page_id=0) {
+	public function add_attachment ($coaching_id=0, $course_id=0, $lesson_id=0, $page_id=0) { 
 
 		$this->form_validation->set_rules ('att_title', 'Resource Title', 'required|trim');
 		$this->form_validation->set_rules ('page_id', 'Invalid request', 'greater_than[0]', ['greater_than'=>'Invalid request']);

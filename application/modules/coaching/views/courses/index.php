@@ -1,66 +1,60 @@
 <div class="row ">
-    <div class="col-12" data-check-all="checkAll"> 
-    <?php 
-    $i = 1;
-    if ( ! empty ($courses)) { 
-      foreach ($courses as $row) { 
-        ?>
-        <div class="card d-flex flex-row mb-3">
-          <div class="d-flex flex-grow-1 min-width-zero">
-              <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                <div class="flex-grow-1">
-                  <div class="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                    <a class="list-item-heading mb-0 w-40 w-xs-100 mt-0" href="<?php echo site_url ('coaching/courses/manage/'.$coaching_id.'/'.$row['course_id']); ?>">
-                        <div class="d-flex">
-                          <span class="mr-2"><?php echo $i; ?>.</span>
-                          <div class="flex-grow-1 my-auto truncate">
-                            <?php echo $row['title']; ?>
-                            <div class="text-muted text-small">
-                              <?php
-                                if ($row['cat_id'] == 0)
-                                  echo 'Uncategorized';
-                                else
-                                  echo $row['cat_title'];
-                              ?>
-                              </div>
-                          </div>
+    <div class="col-12 list" data-check-all="checkAll"> 
+      <?php 
+      $i = 1;
+      if ( ! empty ($courses)) { 
+        foreach ($courses as $row) { 
+          ?>
+          <div class="card d-flex flex-row mb-3">
+              <div class="d-flex flex-grow-1 min-width-zero">
+                  <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+                      <a class="list-item-heading mb-0 truncate w-40 w-xs-100" href="<?php echo site_url ('coaching/courses/manage/'.$coaching_id.'/'.$row['course_id']); ?>">
+                        <?php echo $row['title']; ?>
+                        <div class="text-muted text-small">
+                          <?php
+                            if ($row['cat_id'] == 0)
+                              echo 'Uncategorized';
+                            else
+                              echo $row['cat_title'];
+                          ?>
                         </div>
-                    </a>
-                    <p class="my-2 my-md-0 text-muted text-small w-15 w-xs-100">
-                      <?php 
-                        if ($row['status'] == COURSE_STATUS_ACTIVE) {
-                          echo '<span class="badge badge-success">Published</span>';
-                        } else {
-                          echo '<span class="badge badge-danger">Unpublished</span>';
-                        }
+                      </a>
+                      <p class="mb-0 text-muted text-small w-15 w-xs-100"></p>
+                      <p class="mb-0 text-muted text-small w-15 w-xs-100"></p>
+                      <div class="w-15 w-xs-100">
+                        <?php 
+                          if ($row['status'] == COURSE_STATUS_ACTIVE) {
+                            echo '<span class="badge badge-success">Published</span>';
+                          } else {
+                            echo '<span class="badge badge-danger">Unpublished</span>';
+                          }
                         ?>
-                    </p>                   
+                      </div>
                   </div>
-                </div>
-                  <div class="flex-shrink-0">
-                    <a class="btn btn-primary" href="<?php echo site_url ('coaching/courses/manage/'.$coaching_id.'/'.$row['course_id']); ?>"><i class="fa fa-cog"></i> Manage </a>
-
-                  </div>
-                </div>
-            </div>
+                  <label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
+                      <input type="checkbox" class="custom-control-input">
+                      <span class="custom-control-label">&nbsp;</span>
+                  </label>
+              </div>
+          </div>
+          <?php 
+          $i++; 
+        } 
+      } else {
+        ?>
+        <div class="alert alert-danger" role="alert">
+          No subjects found. 
+            <?php if ($is_admin) { ?>
+              <?php echo anchor ('coaching/courses/create/'.$coaching_id.'/'.$cat_id, 'Create a new subject'); ?>
+            <?php } ?>
         </div>
-        <?php 
-        $i++; 
-      } 
-    } else {
+        <?php
+      }
       ?>
-      <div class="alert alert-danger" role="alert">
-        No subjects found. 
-          <?php if ($is_admin) { ?>
-            <?php echo anchor ('coaching/courses/create/'.$coaching_id.'/'.$cat_id, 'Create a new subject'); ?>
-          <?php } ?>
-      </div>
-      <?php
-    }
-    ?>
   </div>
 </div>
-<?php if($is_admin): ?>
+
+<?php if ($is_admin): ?>
 <div class="modal fade" id="editCategories" data-backdrop="static" data-keyboard="true" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <?php echo form_open('', array('class' => 'modal-content', 'id' => 'validate-1')); ?>

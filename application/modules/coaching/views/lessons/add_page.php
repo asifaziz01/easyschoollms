@@ -78,7 +78,7 @@
 
 			<!-- Button trigger modal -->
 			<?php if ($page_id > 0) { ?>
-				<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#add_attachment" data-backdrop="static">
+				<button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#add_attachment" data-backdrop="static">
 				  Add Attachment
 				</button>
 			<?php } else { ?>
@@ -90,26 +90,29 @@
 
 	<div class="card-footer">
 		<input type="submit" name="submit" class="btn btn-primary" value="Save" data-toggle="tooltip" data-placement="bottom" title="Save" />
+		<button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#preview_attachment" data-backdrop="static">
+		  Preview
+		</button>
 	</div>
 	<?php echo form_close (); ?>
 </div>
 
 <!-- Modal -->
 <div class="modal fade " id="add_attachment" tabindex="-1" role="dialog" aria-labelledby="add_attachment_label" aria-hidden="true">
-	<?php echo form_open_multipart ('coaching/lesson_actions/add_attachment/'.$coaching_id.'/'.$course_id.'/'.$lesson_id.'/'.$page_id, array('class'=>'validate-form')); ?>
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="add_attachment_label">Add Attachment</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="add_attachment_label">Add Attachment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+		<?php echo form_open_multipart ('coaching/lesson_actions/add_attachment/'.$coaching_id.'/'.$course_id.'/'.$lesson_id.'/'.$page_id, array('class'=>'validate-form')); ?>
 	      <div class="modal-body">
 			<input type="hidden" name="page_id" value="<?php echo $page_id; ?>">
 			<div class="form-group">
-				<label for="youtube">Attachment Title</label>
-				<input type="text" class="form-control" name="att_title" placeholder="Resource Title">
+				<label for="att_title">Attachment Title</label>
+				<input type="text" class="form-control" name="att_title" placeholder="Resource Title" id="att_title" value="<?php echo set_value ('att_title'); ?>">
 			</div>
 
 			<div class="form-group">
@@ -152,7 +155,50 @@
 	        <button type="submit" class="btn btn-success">Save</button>
 	      </div>
 	    </div>
-	  </div>
-	<?php echo form_close (); ?>
+	  <?php echo form_close (); ?>
+	</div>
 </div>
 <!-- Modal -->
+
+
+<!-- Modal -->
+<div class="modal fade " id="preview_attachment" tabindex="-1" role="dialog" aria-labelledby="add_attachment_label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">      
+      <div class="modal-body">
+      	<h4><?php echo $page['title']; ?></h4>
+      	<div>
+      		<?php echo $page['content']; ?>
+      	</div>
+      	<div>
+      		<?php
+			if (! empty ($attachments)) {
+				foreach ($attachments as $att) {					
+					echo '<p class="font-weight-medium mb-0">'.$att['title'].'</p>';
+					if ($att['att_type'] == LESSON_ATT_YOUTUBE) { 
+						$youtubeURL = getYoutubeEmbedUrl($att['att_url']); 
+						if ($youtubeURL !== null) {
+							?>
+							<iframe class="w-100" src="<?php echo $youtubeURL; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<?php
+						}
+					} else if ($att['att_type'] == LESSON_ATT_EXTERNAL) { 
+						echo '<a href="'.$att['att_url'].'" class="text-info">';
+							echo '<i class="fa fa-link "></i> '.$att['att_url'];
+                        echo '</a>';
+					} else {
+						echo '<embed src="'.$att['att_url'].'" width = "100%" height = "200" >';
+      					echo '</embed>';
+					}						
+				}			
+			}
+			?>
+      	</div>
+      </div>
+
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

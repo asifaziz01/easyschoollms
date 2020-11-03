@@ -57,7 +57,7 @@ class Courses_model extends CI_Model {
 				//$cat = $this->get_course_category_by_id ($cat_id);
 				$cat = $this->users_model->get_batch_details ($cat_id);
 				if ($cat) {
-					$course['cat_title'] = $cat['batch_name'];					
+					$course['cat_title'] = $cat['batch_name'];
 				}
 				$result[] = $course;
 			}

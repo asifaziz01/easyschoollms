@@ -33,6 +33,7 @@ class Courses_model extends CI_Model {
 			}
 		}
 		$this->db->where ('CC.status', 1);
+		$this->db->where ('CC.coaching_id', $coaching_id);
 		$this->db->from ('coaching_courses CC');
 		$sql = $this->db->get ();
 		$courses = $sql->result_array ();
@@ -76,8 +77,8 @@ class Courses_model extends CI_Model {
 
 	public function my_courses ($coaching_id=0, $member_id=0, $cat_id='-1') {
 		$this->db->select ('CC.*, CB.batch_id');
-		$this->db->from ('coaching_course_batch_users CB');
-		$this->db->join ('coaching_courses CC', 'CB.course_id=CC.course_id');
+		$this->db->from ('coaching_course_batch_users CB, coaching_courses CC');
+		//$this->db->join ('coaching_courses CC', 'CB.course_id=CC.course_id');
 		$this->db->where ('CB.coaching_id', $coaching_id);
 		$this->db->where ('CB.member_id', $member_id);
 		if ($cat_id > '-1') {

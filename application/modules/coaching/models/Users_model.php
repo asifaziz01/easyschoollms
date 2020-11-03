@@ -225,9 +225,11 @@ class Users_model extends CI_Model {
 		}
 
 		// Add/update batch
-    	$batch_id = $this->input->post ('batch');
-		$this->add_user_to_batch ($coaching_id, $member_id, $batch_id);
-		return $return;
+		if ($this->input->post ('user_role') == USER_ROLE_STUDENT) {				
+	    	$batch_id = $this->input->post ('batch');
+			$this->add_user_to_batch ($coaching_id, $member_id, $batch_id);
+			return $return;
+		}
 	}
 	
 	
@@ -745,15 +747,17 @@ class Users_model extends CI_Model {
 		return $users;
 	}	
 	
-	public function save_batch_users ($batch_id=0) {
+	public function save_batch_users ($coaching_id=0, $batch_id=0) {
 		
 		$users = $this->input->post ('users');
 		foreach ($users as $member_id) {
+			$this->db->where ('coaching_id', $coaching_id);
 			$this->db->where ('batch_id', $batch_id);
 			$this->db->where ('member_id', $member_id);
 			$sql = $this->db->get ('coaching_course_batch_users');
 			if  ($sql->num_rows () == 0 ) { 
 				$data['member_id'] = $member_id;
+				$data['coaching_id']  = $coaching_id;
 				$data['batch_id']  = $batch_id;
 				$sql = $this->db->insert ('coaching_course_batch_users', $data);
 				//echo $this->db->last_query ();

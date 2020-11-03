@@ -4,7 +4,7 @@ class Home extends MX_Controller {
 	
 	public function __construct () { 
 	    $config = ['config_coaching', 'config_virtual_class', 'config_course'];
-	    $models = ['coaching_model', 'users_model', 'subscription_model', 'virtual_class_model', 'courses_model', 'tests_model', 'plans_model'];
+	    $models = ['coaching_model', 'users_model', 'online_class_model', 'subscription_model', 'virtual_class_model', 'courses_model', 'tests_model', 'plans_model'];
 	    $this->common_model->autoload_resources ($config, $models);
 
         $cid = $this->uri->segment (4);
@@ -117,26 +117,37 @@ class Home extends MX_Controller {
 		$data['coaching'] = $this->coaching_model->get_coaching ($coaching_id);
 		$data['my_classrooms'] = $this->virtual_class_model->my_classroom ($coaching_id, $member_id);
 		$data['announcements'] = $this->coaching_model->get_coaching_announcements ($coaching_id);
-		$data['cats_added'] = array ();
-		$direct_courses = $this->courses_model->member_courses_by_type (COURSE_ENROLMENT_DIRECT, $coaching_id);
-		$data['direct_courses'] = count($direct_courses);
-		$batch_courses = $this->courses_model->member_courses_by_type (COURSE_ENROLMENT_BATCH, $coaching_id);
-		$data['batch_courses'] = count($batch_courses);
-		$courses = $this->courses_model->member_courses ($coaching_id, -1);
-		$data['count_tests'] = 0;
-		foreach ($courses as $i => $course) {
-			$tests = $this->tests_model->get_all_tests ($coaching_id, $course['course_id'], 1, TEST_TYPE_PRACTICE);
-			if ( ! empty ($tests)) {
-				$count_tests = count ($tests);
-			} else {
-				$count_tests = 0;
+		$data['courses'] = $courses = $this->courses_model->member_courses_by_type (COURSE_ENROLMENT_DIRECT, $coaching_id);
+		$data['num_courses'] = count($data['courses']);
+
+		// Online Classes
+		$oc = [];
+		$num_oc = 0;
+		if (! empty ($courses)) {
+			foreach ($courses as $course) {
+				$classes = $this->online_class_model->get_all_classes ($coaching_id, $course['course_id']);
+				$count_oc = count ($classes);
+				$num_oc = $num_oc + $count_oc;
+				$oc[] = $classes;
 			}
-			$data['count_tests'] += $count_tests;
 		}
-		$test_plans = $this->plans_model->coaching_test_plans ($coaching_id);
-		$lesson_plans = $this->plans_model->coaching_lesson_plans ($coaching_id);
-		$data['paid_resource'] = count($lesson_plans);
-		$data['free_resource'] = count($test_plans);
+		$data['online_class'] = $oc;
+		$data['num_oc'] = $num_oc;
+
+		// Online Tests
+        $tests = [];
+        $num_tests = 0;
+        if (! empty ($courses)) {
+            foreach ($courses as $course) {
+                $row = $this->tests_model->get_all_tests ($coaching_id, $course['course_id'], 1);
+				$count_tests = count ($row);
+                $num_tests = $num_tests + $count_tests;
+                $tests[] = $row;
+            }
+        }
+
+		$data['tests'] = $tests;
+		$data['num_tests'] = $num_tests;
 		$data['page_title'] = 'Dashboard';
 
         //$data['bc'] = array ('Coachings'=>'admin/coaching/index');

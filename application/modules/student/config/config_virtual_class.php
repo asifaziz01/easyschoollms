@@ -7,10 +7,16 @@ define ('VM_PARTICIPANT_ATTENDEE', 				1);
 define ('VM_PARTICIPANT_MODERATOR', 			2);
 
 define ('VC_LOGOUT_URL', 					site_url('student/virtual_class/index'));
-define ('VC_BANNER_TEXT', 					'Easy Coaching App');
+define ('VC_BANNER_TEXT', 					'LMSMadeEasy');
 define ('VC_BANNER_COLOR', 					'#f5f5f5');
 define ('VC_LOGO', 							'');
 define ('VC_MAX_PARTICIPANTS', 				100);		
 define ('VC_DURATION', 						300);		// in minutes
 define ('VC_RECORD', 						true);		
 define ('VC_WELCOME_MESSAGE', 				'Welcome to ');
+
+/* External Class Settings */
+define ('OC_APP_ZOOM', 					1);
+define ('OC_APP_GOOGLE', 				2);
+define ('OC_APP_JIO', 					3);
+define ('OC_APP_OTHER', 				4);

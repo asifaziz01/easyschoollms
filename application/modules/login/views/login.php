@@ -3,8 +3,8 @@
         <div class="card auth-card shadow">
             <div class="position-relative image-side text-center">
                 <div class="d-flex flex-column h-100 align-items-center justify-content-center">
-                     <?php if ( is_file ($logo)) { ?>
-                        <img src="<?php echo $logo; ?>" height="50" title="<?php echo $page_title; ?>" class="text-center mb-4" alt="<?php echo $page_title; ?>">
+                     <?php if ( read_file ($logo) != false) { ?>
+                        <img src="<?php echo $logo; ?>" height="80" title="<?php echo $page_title; ?>" class="text-center mb-4" alt="<?php echo $page_title; ?>">
                     <?php } else { ?>
                         <h2 class="text-white text-center mb-4"><?php echo $page_title; ?></h2>
                     <?php } ?>
@@ -17,8 +17,7 @@
                     </p>
                 </div>
             </div>
-            <div class="form-side">
-               
+            <div class="form-side">               
                 <h4 class="text-center mb-4">Sign in with your credentials</h4>
                 <?php echo form_open ('login/login_actions/validate_login', array('id'=>'login-form')); ?>
                     <div class="form-group mb-4">

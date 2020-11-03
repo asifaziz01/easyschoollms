@@ -199,7 +199,7 @@ if (submitFormSelector) {
 				}
 			} else {
 				var message = result.error.replace('/[\n\r]/g', '');
-				toastr.error (message);
+				toastr.error (message, '', {timeOut:1000});
 			}
 		});
 	});
@@ -223,7 +223,6 @@ for (i = 0; i < submitFormSelectors.length; i++) {
 			}).then (function (response) {
 				return response.json ();
 			}).then(function(result) {
-				console.log (result);
 				toastr.clear ();
 				if (result.status == true) {
 					toastr.success (result.message, '', {timeOut:1000});
@@ -232,7 +231,7 @@ for (i = 0; i < submitFormSelectors.length; i++) {
 					}
 				} else {
 					var message = result.error.replace('/[\n\r]/g', '');
-					toastr.error (message);
+					toastr.error (message, '', {timeOut:1000});
 				}
 			});
 		});

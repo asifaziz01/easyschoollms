@@ -26,7 +26,7 @@
 							</p>
 						</div>
 						<div class="flex-shrink-1 px-sm-3 my-auto">
-							<a href="<?php echo site_url ('coaching/online_class_actions/delete_class/'.$coaching_id.'/'.$course_id.'/'.$row['id']); ?>" class="btn btn-primary "> Join </a>
+							<a href="<?php echo $row['meeting_url']; ?>" class="btn btn-primary "> Join </a>
 							<a onclick="show_confirm ('Delete this online class?', '<?php echo site_url ('coaching/online_class_actions/delete_class/'.$coaching_id.'/'.$course_id.'/'.$row['id']); ?>')" href="#" class="btn btn-danger "><i class="fa fa-trash"></i></a>
 						</div>
 					</li>

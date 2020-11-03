@@ -117,7 +117,7 @@ class Lessons extends MX_Controller {
 		$data['page'] = $this->lessons_model->get_page ($coaching_id, $course_id, $lesson_id, $page_id);
 		$data['attachments'] = $this->lessons_model->get_attachments ($coaching_id, $course_id, $lesson_id, $page_id);
 		$data['toolbar_buttons'] = array(
-			'<i class="fa fa-file"></i> Add New Page'=> 'coaching/lessons/add_page/'.$coaching_id.'/'.$course_id.'/'.$lesson_id
+			'<i class="fa fa-file"></i> Add Page'=> 'coaching/lessons/add_page/'.$coaching_id.'/'.$course_id.'/'.$lesson_id
 		);
 		
 		$data['is_admin'] = USER_ROLE_COACHING_ADMIN === intval($this->session->userdata('role_id'));

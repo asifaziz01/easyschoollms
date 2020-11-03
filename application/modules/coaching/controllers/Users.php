@@ -12,10 +12,12 @@ class Users extends MX_Controller {
 	    $this->common_model->autoload_resources ($config, $models);
 	    
         $cid = $this->uri->segment (4);
-        $this->toolbar_buttons['<i class="fa fa-chalkboard-teacher"></i> Classes']='coaching/users/classes/'.$cid;
-        $this->toolbar_buttons['<i class="fa fa-list"></i> All Users']= 'coaching/users/index/'.$cid;
-        $this->toolbar_buttons['<i class="fa fa-plus-circle"></i> New User']= 'coaching/users/create/'.$cid;
-        $this->toolbar_buttons['<i class="fa fa-upload"></i> Import Users']= 'coaching/users/import/'.$cid;
+        $this->toolbar_buttons = [
+		'<i class="fa fa-chalkboard-teacher"></i> Classes'=>'coaching/users/classes/'.$cid,
+        '<i class="fa fa-list"></i> All Users'=>'coaching/users/index/'.$cid,
+        '<i class="fa fa-plus-circle"></i> New User'=>'coaching/users/create/'.$cid,
+        '<i class="fa fa-upload"></i> Import Users'=>'coaching/users/import/'.$cid
+    	];
         $this->is_admin = USER_ROLE_COACHING_ADMIN === intval($this->session->userdata('role_id'));
         
         // Security step to prevent unauthorized access through url
@@ -320,8 +322,8 @@ class Users extends MX_Controller {
 		$data["page_title"] = "Classes";
 		$data["batch_id"] = $batch_id;
 		$data["coaching_id"] = $coaching_id;
+		$data['toolbar_add_button'] = ['<i class="fa fa-plus"></i> New Class'=>'coaching/users/create_batch/'.$coaching_id];
 		$data['toolbar_buttons'] = $this->toolbar_buttons;
-		$data['toolbar_buttons']['<i class="fa fa-plus"></i> New Class'] = 'coaching/users/create_batch/'.$coaching_id;
 		$data["bc"] = array ( 'Users'=>'coaching/users/index/'.$coaching_id );
 		$data['all_batches'] = $this->users_model->get_batches ($coaching_id);
 

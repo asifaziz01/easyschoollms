@@ -407,7 +407,7 @@ class User_actions extends MX_Controller {
 		
 		$this->form_validation->set_rules ('users[]', 'Users', 'required');
 		if ($this->form_validation->run () == true) {
-			$this->users_model->save_batch_users ($batch_id);			
+			$this->users_model->save_batch_users ($coaching_id, $batch_id);			
 			$message = 'User(s) added to batch successfully';
 			$this->message->set ($message, 'success', true);
 			$this->output->set_content_type("application/json");

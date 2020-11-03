@@ -13,7 +13,7 @@ class Login extends MX_Controller {
  	public function index () {    
     	$data['page_title'] = '';
 		$data['script'] = $this->load->view ('scripts/validate', $data, true);
-		$this->load->view(INCLUDE_PATH . 'header', $data);
+		$this->load->view (INCLUDE_PATH . 'header', $data);
 		//$this->load->view('find_coaching', $data);
 		$this->load->view(INCLUDE_PATH . 'footer', $data);
 	}
